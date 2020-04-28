@@ -337,13 +337,12 @@ for epoch in range(st_epoch, args.n_epoch):
 
             if i % args.log_per_iter == 0:
                 log = '%s [%d/%d][%d/%d] Loss: %.6f (%.6f), fit: %.6f (%.6f), s_l: %.6f (%.6f), s_r: %.6f (%.6f), ' \
-                      'G_encode: %.6f (%.6f), metric: %.6f (%.6f), dist g %.6f s %.6f' % (
+                      'metric: %.6f (%.6f), dist g %.6f s %.6f' % (
                     phase, epoch, args.n_epoch, i, data_n_batches[phase],
                     loss.item(), meter_loss.avg,
                     fit_err.item(), meter_fit_error.avg,
                     loss_auto_encode.item(), meter_loss_ae.avg,
                     loss_prediction.item(), meter_loss_pred.avg,
-                    loss_G_encode.item(), meter_G_encode.avg,
                     loss_metric.item(), meter_loss_metric.avg, meter_dist_g.avg, meter_dist_s.avg
                       )
 
