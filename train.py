@@ -336,14 +336,14 @@ for epoch in range(st_epoch, args.n_epoch):
                 optimizer.step()
 
             if i % args.log_per_iter == 0:
-                log = '%s [%d/%d][%d/%d] Loss: %.6f (%.6f), fit: %.6f (%.6f), s_l: %.6f (%.6f), s_r: %.6f (%.6f), ' \
-                      'metric: %.6f (%.6f), dist g %.6f s %.6f' % (
+                log = '%s [%d/%d][%d/%d] Loss: %.6f (%.6f), sysid_error: %.6f (%.6f), loss_ae: %.6f (%.6f), loss_pred: %.6f (%.6f), ' \
+                      'loss_metric: %.6f (%.6f)' % (
                     phase, epoch, args.n_epoch, i, data_n_batches[phase],
                     loss.item(), meter_loss.avg,
                     fit_err.item(), meter_fit_error.avg,
                     loss_auto_encode.item(), meter_loss_ae.avg,
                     loss_prediction.item(), meter_loss_pred.avg,
-                    loss_metric.item(), meter_loss_metric.avg, meter_dist_g.avg, meter_dist_s.avg
+                    loss_metric.item(), meter_loss_metric.avg,
                       )
 
                 print()
