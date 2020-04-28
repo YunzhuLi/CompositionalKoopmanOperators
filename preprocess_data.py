@@ -62,17 +62,8 @@ pool = mp.Pool(processes=n_workers)
 num_train = int(args.n_rollout * args.train_valid_ratio)
 num_valid = args.n_rollout - num_train
 
-if args.extra_data == 1:
-    '''
-    extra data has same amount as valid 
-    but different num_obj_range
-    '''
-    infos = [(n_workers, idx, num_valid, 'extra') for idx in range(n_workers)]
-    pool.map(sub_thread, infos)
+infos = [(n_workers, idx, num_train, 'train') for idx in range(n_workers)]
+pool.map(sub_thread, infos)
 
-else:
-    infos = [(n_workers, idx, num_train, 'train') for idx in range(n_workers)]
-    pool.map(sub_thread, infos)
-
-    infos = [(n_workers, idx, num_valid, 'valid') for idx in range(n_workers)]
-    pool.map(sub_thread, infos)
+infos = [(n_workers, idx, num_valid, 'valid') for idx in range(n_workers)]
+pool.map(sub_thread, infos)
