@@ -302,10 +302,7 @@ def gen_Soft(info):
     # attr, state, action
     stats = [init_stat(attr_dim), init_stat(state_dim), init_stat(action_dim)]
 
-    if args.fix_param == 1:
-        raise AssertionError("Unimplemented")
-    else:
-        engine = SoftEngine(dt, state_dim, action_dim, param_dim)
+    engine = SoftEngine(dt, state_dim, action_dim, param_dim)
 
     group_size = args.group_size
     sub_dataset_size = n_rollout * args.num_workers // args.n_splits
@@ -432,10 +429,7 @@ def gen_Swim(info):
     # attr, state, action
     stats = [init_stat(attr_dim), init_stat(state_dim), init_stat(action_dim)]
 
-    if args.fix_param == 1:
-        raise AssertionError("Unimplemented")
-    else:
-        engine = SwimEngine(dt, state_dim, action_dim, param_dim)
+    engine = SwimEngine(dt, state_dim, action_dim, param_dim)
 
     group_size = args.group_size
     sub_dataset_size = n_rollout * args.num_workers // args.n_splits
