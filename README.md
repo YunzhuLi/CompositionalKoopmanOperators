@@ -47,6 +47,8 @@ We provide the following scripts to perform model-based control with the pretain
     bash scripts/mpc_Soft.sh
     bash scripts/mpc_Swim.sh
 
+For Mac users, you will be able to get the results in the form of image frames, but it is possible that the generated video is empty due to the incorrect combination of the file extension and the fourcc when using the OpenCV video writer (see this [[issue]](https://github.com/YunzhuLi/CompositionalKoopmanOperators/issues/1)).
+
  
 
 Train Your Own Models
@@ -91,3 +93,4 @@ If you find this codebase useful in your research, please consider citing:
 Related Work
 ---------------
 Propagation Networks for Model-Based Control Under Partial Observation [(website)](http://propnet.csail.mit.edu/) [(code)](https://github.com/YunzhuLi/PropNet)
+

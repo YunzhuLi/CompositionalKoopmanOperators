@@ -179,7 +179,7 @@ def eval(idx_rollout, video=True):
         s_pred[step + 1:step + 2] = to_var(s_pred_next, use_gpu=use_gpu)
 
     if video:
-        engine.render(states_pred, seq_data[2], param, act_scale=args.act_scale, video=True, image=False,
+        engine.render(states_pred, seq_data[2], param, act_scale=args.act_scale, video=True, image=True,
                       path=os.path.join(args.evalf, str(idx_rollout) + '.pred'),
                       states_gt=states_gt)
 

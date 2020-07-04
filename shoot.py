@@ -380,7 +380,7 @@ def shoot_mpc_qp(roll_idx):
     '''
     render
     '''
-    engine.render(states_roll, control, param, act_scale=args.act_scale, video=True, image=False,
+    engine.render(states_roll, control, param, act_scale=args.act_scale, video=True, image=True,
                   path=os.path.join(args.shootf, str(roll_idx) + '.shoot'),
                   states_gt=np.tile(states_gt[goal_step:goal_step + 1], (args.roll_step + 1, 1, 1)),
                   count_down=True, gt_border=True)
