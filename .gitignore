@@ -16,7 +16,11 @@ data/data_Swim/train
 data/data_Swim/stat.h5
 dump_Rope/eval*
 dump_Rope/shoot*
+dump_Rope/train*
 dump_Soft/eval*
 dump_Soft/shoot*
+dump_Soft/train*
 dump_Swim/eval*
 dump_Swim/shoot*
+dump_Swim/train*
+
