@@ -137,7 +137,7 @@ class RopeEngine(Engine):
 
         for i in range(self.n_ball):
             body = pymunk.Body(self.mass, inertia)
-            body.position = Vec2d((x, y))
+            body.position = Vec2d(x, y)
             shape = pymunk.Circle(body, self.radius, (0, 0))
 
             if i == 0:
@@ -622,13 +622,13 @@ class SoftEngine(Engine):
                 body = pymunk.Body(self.mass, inertia)
 
                 if j == 0:
-                    body.position = Vec2d((x - l, y - l))
+                    body.position = Vec2d(x - l, y - l)
                 elif j == 1:
-                    body.position = Vec2d((x - l, y + l))
+                    body.position = Vec2d(x - l, y + l)
                 elif j == 2:
-                    body.position = Vec2d((x + l, y - l))
+                    body.position = Vec2d(x + l, y - l)
                 else:
-                    body.position = Vec2d((x + l, y + l))
+                    body.position = Vec2d(x + l, y + l)
 
                 # shape = pymunk.Circle(body, self.radius, (0, 0))
                 # self.space.add(body, shape)
@@ -730,7 +730,8 @@ class SoftEngine(Engine):
                         self.balls[y].position[1] - self.balls[x].position[1]])
                     direct /= norm(direct)
                     force = direct * self.action[i]
-                    self.balls[x].apply_force_at_local_point(force=force, point=(0, 0))
+                    self.balls[x].apply_force_at_local_point(
+                        force=(force[0], force[1]), point=(0, 0))
 
     def get_param(self):
         return self.n_box, self.k, self.damping, self.init_p
@@ -1106,13 +1107,13 @@ class SwimEngine(Engine):
                 body = pymunk.Body(self.mass, inertia)
 
                 if j == 0:
-                    body.position = Vec2d((x - l, y - l))
+                    body.position = Vec2d(x - l, y - l)
                 elif j == 1:
-                    body.position = Vec2d((x - l, y + l))
+                    body.position = Vec2d(x - l, y + l)
                 elif j == 2:
-                    body.position = Vec2d((x + l, y - l))
+                    body.position = Vec2d(x + l, y - l)
                 else:
-                    body.position = Vec2d((x + l, y + l))
+                    body.position = Vec2d(x + l, y + l)
 
                 # shape = pymunk.Circle(body, self.radius, (0, 0))
                 # self.space.add(body, shape)
@@ -1187,7 +1188,8 @@ class SwimEngine(Engine):
                         self.balls[y].position[1] - self.balls[x].position[1]])
                     direct /= norm(direct)
                     force = direct * self.action[i]
-                    self.balls[x].apply_force_at_local_point(force=force, point=(0, 0))
+                    self.balls[x].apply_force_at_local_point(
+                        force=(force[0], force[1]), point=(0, 0))
 
         for i in range(self.n_box):
             s = np.zeros((4, 4))
@@ -1217,12 +1219,14 @@ class SwimEngine(Engine):
                     v_scale = np.dot(s[a, 2:], direct)
                     if v_scale > 0.:
                         f = - v_scale ** 2 * direct * dist * 50.
-                        self.balls[i * 4 + a].apply_force_at_local_point(force=f, point=(0, 0))
+                        self.balls[i * 4 + a].apply_force_at_local_point(
+                            force=(f[0], f[1]), point=(0, 0))
 
                     v_scale = np.dot(s[b, 2:], direct)
                     if v_scale > 0.:
                         f = - v_scale ** 2 * direct * dist * 50.
-                        self.balls[i * 4 + b].apply_force_at_local_point(force=f, point=(0, 0))
+                        self.balls[i * 4 + b].apply_force_at_local_point(
+                            force=(f[0], f[1]), point=(0, 0))
 
     def get_param(self):
         return self.n_box, self.k, self.damping, self.init_p

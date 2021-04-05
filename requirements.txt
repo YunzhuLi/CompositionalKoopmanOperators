@@ -4,5 +4,5 @@ scipy
 matplotlib
 progressbar2
 opencv-python
-pymunk
+pymunk==6.0.0
 cvxpy

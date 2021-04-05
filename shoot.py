@@ -119,10 +119,10 @@ def mpc_qp(g_cur, g_goal, time_cur, T, rel_attrs, A_t, B_t, Q, R, node_attrs=Non
             ed_idx = (t + 1) * n_obj
             for r in range(args.relation_dim):
                 constraints.append(augG[st_idx:ed_idx, r * D: (r + 1) * D] ==
-                                   rel_attrs[:, :, r] * g[st_idx:ed_idx])
+                                   rel_attrs[:, :, r] @ g[st_idx:ed_idx])
             for r in range(args.relation_dim):
                 constraints.append(augU[st_idx:ed_idx, r * dim_a: (r + 1) * dim_a] ==
-                                   rel_attrs[:, :, r] * u[st_idx:ed_idx])
+                                   rel_attrs[:, :, r] @ u[st_idx:ed_idx])
 
         cost = 0
 
@@ -155,7 +155,7 @@ def mpc_qp(g_cur, g_goal, time_cur, T, rel_attrs, A_t, B_t, Q, R, node_attrs=Non
                     else:
                         pass
 
-                constraints.append(g[cur_idx] == A_t * augG[prv_idx] + B_t * augU[prv_idx])
+                constraints.append(g[cur_idx] == A_t @ augG[prv_idx] + B_t @ augU[prv_idx])
                 # penalize large actions
                 cost += quad_form(u[prv_idx] - zero_normed, R)
             cost += quad_form(g[(T - 1) * n_obj + idx] - g_goal[idx], Q)
@@ -188,7 +188,7 @@ def mpc_qp(g_cur, g_goal, time_cur, T, rel_attrs, A_t, B_t, Q, R, node_attrs=Non
                     if node_attrs[idx, 0] < 1e-6:
                         constraints.append(u[t - 1][idx * args.action_dim: (idx + 1) * args.action_dim] == zero_normed)
 
-            constraints.append(g[t] == A_t * g[t - 1] + B_t * u[t - 1])
+            constraints.append(g[t] == A_t @ g[t - 1] + B_t @ u[t - 1])
 
             for i in range(n_obj):
                 cost += quad_form(u[t - 1][i * args.action_dim:(i + 1) * args.action_dim] - zero_normed, R)
@@ -221,8 +221,8 @@ def mpc_qp(g_cur, g_goal, time_cur, T, rel_attrs, A_t, B_t, Q, R, node_attrs=Non
                         constraints.append(u[t - 1][idx * args.action_dim: (idx + 1) * args.action_dim] == zero_normed)
 
             for i in range(n_obj):
-                t1 = A_t * g[t - 1][i * args.g_dim:(i + 1) * args.g_dim]
-                t2 = B_t * u[t - 1][i * args.action_dim:(i + 1) * args.action_dim]
+                t1 = A_t @ g[t - 1][i * args.g_dim:(i + 1) * args.g_dim]
+                t2 = B_t @ u[t - 1][i * args.action_dim:(i + 1) * args.action_dim]
                 if args.env == 'Rope':
                     t2 = t2[:, 0]
                 constraints.append(g[t][i * args.g_dim:(i + 1) * args.g_dim] == t1 + t2)
